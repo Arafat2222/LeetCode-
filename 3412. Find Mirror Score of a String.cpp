@@ -26,6 +26,7 @@ public:
                 arr[indx].pop();
 
             }
+            
         }
         return ans;
             
