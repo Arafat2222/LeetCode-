@@ -1,7 +1,6 @@
 class Solution {
 public:
     long long calculateScore(string str) {
-        //string str; //cin >> str;
         map<char,char>mp;
         vector<int>vis(1e6+123,0);
         char z = 'z';
@@ -16,17 +15,14 @@ public:
             arr[str[i] - 'a'].push(i);
         
             int indx = mp[str[i]] - 'a';
-            if(!arr[indx].empty() && vis[i] == 0){
+            if(!arr[indx].empty() && vis[i] == 0 && vis[arr[indx].top()] == 0){
                 
-                if(vis[i] == 0 && vis[arr[indx].top()] == 0){
-                    ans += abs(arr[indx].top() - i);
-                    vis[i] = 1;
-                    vis[arr[indx].top()] = 1;
-                }
+                ans += abs(arr[indx].top() - i);
+                vis[i] = 1;
+                vis[arr[indx].top()] = 1;
                 arr[indx].pop();
 
             }
-            
         }
         return ans;
             
