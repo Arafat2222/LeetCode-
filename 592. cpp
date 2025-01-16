@@ -1,0 +1,85 @@
+class Solution {
+#define ll long long 
+public:
+    string fractionAddition(string str) {
+        string ans; 
+        vector<int> a,b;
+        for(int i = 0; i < str.size()-1; i++){
+            if(str[i] == '/'){
+            
+                if(i+2 < str.size() && str[i+2] == '0'){
+                    b.push_back(10*(str[i+1]-'0'));
+                    i+=2;
+                }
+                else{
+                    b.push_back(str[i+1] - '0');
+                    i++;
+                }
+            
+            }
+            else if(str[i] == '+'){
+                if(i+2 < str.size() && str[i+2] == '0'){
+                    a.push_back(10*(str[i+1]-'0'));
+                    i+=2;
+                }
+                else{
+                    a.push_back(str[i+1] - '0');
+                    i++;
+                }
+            }
+            else if(str[i] == '-') {
+                if(i+2 < str.size() && str[i+2] == '0'){
+                    a.push_back(-10*(str[i+1]-'0'));
+                    i+=2;
+                }
+                else{
+                    a.push_back(-1*(str[i+1] - '0'));
+                    i++;
+                }
+            }
+            else{
+                if(str[i+1] == '0' && i + 1 < str.size()){
+                    a.push_back(10*(str[i] - '0'));
+                    i++;
+                    
+                }
+                else {
+                    a.push_back(str[i] - '0');
+                    
+                }
+            }
+
+            
+        }
+        ll niche = 1LL;
+        
+        for(auto i : b) niche *= i;
+
+        ll upor = 0LL;
+        for(int i = 0; i < a.size(); i++){
+            ll mid = niche / b[i];
+            upor += mid * a[i];
+        }
+       
+
+        if( upor == 0){
+            ans.push_back('0');
+            ans.push_back('/');
+            ans.push_back('1');
+            return ans;
+        }
+        bool sign = false;
+        if( upor < 0 ) sign = true;
+        upor = abs(upor);
+        int gc = gcd(upor,niche);
+        if(sign) ans.push_back('-');
+        ll x = upor/gc,y = niche/gc;
+        string xx = to_string(x), yy = to_string(y);
+        for(auto i : xx) ans.push_back(i);
+        ans.push_back('/');
+        for(auto i : yy) ans.push_back(i);
+
+        return ans;
+        
+    }
+};
